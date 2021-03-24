@@ -41,16 +41,16 @@ while not rospy.is_shutdown():
     inc_y = goal.y -y
     angle_to_goal = atan2(inc_y, inc_x)
     angular_distance = shortest_angular_distance(theta, angle_to_goal)
+    sign = angular_distance/abs(angular_distance)
     if abs(angular_distance) > 0.1:
         speed.linear.x = 0.0
         if angular_distance > 0.5:
-          speed.angular.z = 1
+          speed.angular.z = sign
         else :
-          speed.angular.z = max(0.3,angular_distance)
+          speed.angular.z = max(abs(0.3*sign),abs(angular_distance))
     else:
         speed.linear.x = 0.5
         speed.angular.z = 0.0
     print(angular_distance)
-
     pub.publish(speed)
     r.sleep()   
