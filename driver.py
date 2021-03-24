@@ -47,7 +47,7 @@ while not rospy.is_shutdown():
         if angular_distance > 0.5:
           speed.angular.z = sign
         else :
-          speed.angular.z = max(abs(0.3*sign),abs(angular_distance))
+          speed.angular.z = sign*max(abs(0.3*sign),abs(angular_distance))
     else:
         speed.linear.x = 0.5
         speed.angular.z = 0.0
